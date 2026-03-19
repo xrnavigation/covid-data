@@ -92,6 +92,17 @@ export function stateAbbrToName(abbr: string): string | undefined {
   return ABBR_MAP.get(abbr)?.name;
 }
 
+/** Map from full state name (lowercase) to abbreviation */
+const NAME_MAP = new Map<string, string>();
+for (const [, abbr, name] of STATE_DATA) {
+  NAME_MAP.set(name.toLowerCase(), abbr);
+}
+
+/** Map a full state name to its two-letter abbreviation. Case-insensitive. */
+export function stateNameToAbbr(name: string): string | undefined {
+  return NAME_MAP.get(name.trim().toLowerCase());
+}
+
 /** Normalize a state abbreviation: trim whitespace and uppercase. */
 export function normalizeStateAbbr(input: string): string {
   return input.trim().toUpperCase();

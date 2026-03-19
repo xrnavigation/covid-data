@@ -1,0 +1,8 @@
+date,county,state,fips,cases,deaths
+2023-03-23,Los Angeles,California,06037,3654321,35123
+2023-03-23,San Diego,California,06073,987654,5432
+2023-03-23,New York City,New York,36061,2876543,42567
+2023-03-23,Cook,Illinois,17031,1765432,15234
+2023-03-23,Harris,Texas,48201,1234567,10987
+2023-03-22,Los Angeles,California,06037,3654100,35120
+2023-03-22,San Diego,California,06073,987600,5430

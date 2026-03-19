@@ -1,0 +1,62 @@
+[
+  {
+    "date_updated": "2023-05-11T00:00:00.000",
+    "state": "AK",
+    "start_date": "2023-05-04T00:00:00.000",
+    "end_date": "2023-05-10T00:00:00.000",
+    "tot_cases": "297588.0",
+    "new_cases": "199.0",
+    "tot_deaths": "1468.0",
+    "new_deaths": "0.0",
+    "new_historic_cases": "0",
+    "new_historic_deaths": "0"
+  },
+  {
+    "date_updated": "2023-05-11T00:00:00.000",
+    "state": "AL",
+    "start_date": "2023-05-04T00:00:00.000",
+    "end_date": "2023-05-10T00:00:00.000",
+    "tot_cases": "1659936.0",
+    "new_cases": "1297.0",
+    "tot_deaths": "21138.0",
+    "new_deaths": "1.0",
+    "new_historic_cases": "0",
+    "new_historic_deaths": "0"
+  },
+  {
+    "date_updated": "2023-05-11T00:00:00.000",
+    "state": "AR",
+    "start_date": "2023-05-04T00:00:00.000",
+    "end_date": "2023-05-10T00:00:00.000",
+    "tot_cases": "995043.0",
+    "new_cases": "657.0",
+    "tot_deaths": "13115.0",
+    "new_deaths": "0.0",
+    "new_historic_cases": "0",
+    "new_historic_deaths": "0"
+  },
+  {
+    "date_updated": "2023-05-11T00:00:00.000",
+    "state": "AS",
+    "start_date": "2023-05-04T00:00:00.000",
+    "end_date": "2023-05-10T00:00:00.000",
+    "tot_cases": "8331.0",
+    "new_cases": "2.0",
+    "tot_deaths": "34.0",
+    "new_deaths": "0.0",
+    "new_historic_cases": "0",
+    "new_historic_deaths": "0"
+  },
+  {
+    "date_updated": "2023-05-11T00:00:00.000",
+    "state": "AZ",
+    "start_date": "2023-05-04T00:00:00.000",
+    "end_date": "2023-05-10T00:00:00.000",
+    "tot_cases": "2474154.0",
+    "new_cases": "2608.0",
+    "tot_deaths": "33451.0",
+    "new_deaths": "34.0",
+    "new_historic_cases": "0",
+    "new_historic_deaths": "0"
+  }
+]

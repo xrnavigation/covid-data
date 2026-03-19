@@ -1,0 +1,52 @@
+[
+  {
+    "state": "California",
+    "updated": 1773942671924,
+    "cases": 12711918,
+    "deaths": 112443,
+    "recovered": 0,
+    "casesPerOneMillion": 321721,
+    "deathsPerOneMillion": 2846,
+    "population": 39512223
+  },
+  {
+    "state": "Texas",
+    "updated": 1773942671924,
+    "cases": 9190299,
+    "deaths": 104793,
+    "recovered": 0,
+    "casesPerOneMillion": 316952,
+    "deathsPerOneMillion": 3614,
+    "population": 28995881
+  },
+  {
+    "state": "Florida",
+    "updated": 1773942671924,
+    "cases": 8048191,
+    "deaths": 95206,
+    "recovered": 0,
+    "casesPerOneMillion": 374722,
+    "deathsPerOneMillion": 4433,
+    "population": 21477737
+  },
+  {
+    "state": "New York",
+    "updated": 1773942671924,
+    "cases": 7587861,
+    "deaths": 83374,
+    "recovered": 0,
+    "casesPerOneMillion": 390050,
+    "deathsPerOneMillion": 4286,
+    "population": 19453561
+  },
+  {
+    "state": "Illinois",
+    "updated": 1773942671924,
+    "cases": 4136659,
+    "deaths": 42005,
+    "recovered": 0,
+    "casesPerOneMillion": 326446,
+    "deathsPerOneMillion": 3315,
+    "population": 12671821
+  }
+]

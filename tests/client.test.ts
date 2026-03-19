@@ -1,7 +1,7 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { CountyPartial, StatePartial } from '../src/sources/nyt.js';
+import type { CdcCasesEntry, CdcCountyVaxEntry, CdcVaxEntry, HhsHospEntry } from '../src/sources/soda.js';
 import type { SourceStatus } from '../src/types.js';
-import type { CdcCasesEntry, HhsHospEntry, CdcVaxEntry, CdcCountyVaxEntry } from '../src/sources/soda.js';
-import type { StatePartial, CountyPartial } from '../src/sources/nyt.js';
 
 vi.mock('../src/sources/soda.js', () => ({
   fetchCdcCases: vi.fn(),
@@ -16,8 +16,13 @@ vi.mock('../src/sources/nyt.js', () => ({
 }));
 
 import { CovidDataClient } from '../src/client.js';
-import { fetchCdcCases, fetchHhsHospitalizations, fetchCdcVaccinations, fetchCdcCountyVaccinations } from '../src/sources/soda.js';
 import { fetchNytCountyCases, fetchNytStateCases } from '../src/sources/nyt.js';
+import {
+  fetchCdcCases,
+  fetchCdcCountyVaccinations,
+  fetchCdcVaccinations,
+  fetchHhsHospitalizations,
+} from '../src/sources/soda.js';
 
 const mockedFetchCdcCases = vi.mocked(fetchCdcCases);
 const mockedFetchHhsHosp = vi.mocked(fetchHhsHospitalizations);
@@ -56,9 +61,32 @@ const nytStateData = new Map<string, StatePartial>([
 ]);
 
 const nytCountyData = new Map<string, CountyPartial>([
-  ['06037', { county: 'Los Angeles', state: 'CA', fips: '06037', totalCases: 5000, totalDeaths: 100, lastUpdated: '2023-06-01' }],
-  ['06075', { county: 'San Francisco', state: 'CA', fips: '06075', totalCases: 2000, totalDeaths: 30, lastUpdated: '2023-06-01' }],
-  ['36061', { county: 'New York', state: 'NY', fips: '36061', totalCases: 4000, totalDeaths: 150, lastUpdated: '2023-06-01' }],
+  [
+    '06037',
+    {
+      county: 'Los Angeles',
+      state: 'CA',
+      fips: '06037',
+      totalCases: 5000,
+      totalDeaths: 100,
+      lastUpdated: '2023-06-01',
+    },
+  ],
+  [
+    '06075',
+    {
+      county: 'San Francisco',
+      state: 'CA',
+      fips: '06075',
+      totalCases: 2000,
+      totalDeaths: 30,
+      lastUpdated: '2023-06-01',
+    },
+  ],
+  [
+    '36061',
+    { county: 'New York', state: 'NY', fips: '36061', totalCases: 4000, totalDeaths: 150, lastUpdated: '2023-06-01' },
+  ],
 ]);
 
 const countyVaxData = new Map<string, CdcCountyVaxEntry>([
@@ -223,7 +251,10 @@ describe('CovidDataClient - getCountyData', () => {
 
   it('handles source failure gracefully', async () => {
     mockedFetchNytCounty.mockResolvedValue({ data: new Map(), status: errStatus('nyt-counties', 'fail') });
-    mockedFetchCdcCountyVax.mockResolvedValue({ data: new Map(), status: errStatus('cdc-county-vaccinations', 'fail') });
+    mockedFetchCdcCountyVax.mockResolvedValue({
+      data: new Map(),
+      status: errStatus('cdc-county-vaccinations', 'fail'),
+    });
 
     const client = new CovidDataClient({ fetch: dummyFetch });
     const result = await client.getCountyData({ state: 'CA' });

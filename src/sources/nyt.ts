@@ -16,10 +16,8 @@ export interface StatePartial {
   lastUpdated: string | null;
 }
 
-const COUNTIES_URL =
-  'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv';
-const STATES_URL =
-  'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
+const COUNTIES_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv';
+const STATES_URL = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv';
 
 type FetchFn = (url: string) => Promise<Response>;
 
@@ -94,7 +92,7 @@ export async function fetchNytCountyCases(
 
     for (const [fips, row] of latestByFips) {
       const stateName = row.state;
-      const stateAbbr = stateName ? stateNameToAbbr(stateName) ?? stateName : '';
+      const stateAbbr = stateName ? (stateNameToAbbr(stateName) ?? stateName) : '';
 
       if (row.date > latestDate) {
         latestDate = row.date;

@@ -1,11 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import {
-  isValidFips,
-  stateAbbrToFips,
-  fipsToStateAbbr,
-  stateAbbrToName,
-  normalizeStateAbbr,
-} from '../src/utils.js';
+import { describe, expect, it } from 'vitest';
+import { fipsToStateAbbr, isValidFips, normalizeStateAbbr, stateAbbrToFips, stateAbbrToName } from '../src/utils.js';
 
 describe('isValidFips', () => {
   it('accepts valid 2-digit state FIPS codes', () => {

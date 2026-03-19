@@ -1,21 +1,21 @@
-import type {
-  CovidDataClientOptions,
-  CovidDataResult,
-  StateCovidData,
-  CountyCovidData,
-  StateDataOptions,
-  CountyDataOptions,
-  SourceStatus,
-} from './types.js';
 import { TTLCache } from './cache.js';
-import { stateAbbrToFips, stateAbbrToName } from './utils.js';
+import { fetchNytCountyCases, fetchNytStateCases } from './sources/nyt.js';
 import {
   fetchCdcCases,
-  fetchHhsHospitalizations,
-  fetchCdcVaccinations,
   fetchCdcCountyVaccinations,
+  fetchCdcVaccinations,
+  fetchHhsHospitalizations,
 } from './sources/soda.js';
-import { fetchNytCountyCases, fetchNytStateCases } from './sources/nyt.js';
+import type {
+  CountyCovidData,
+  CountyDataOptions,
+  CovidDataClientOptions,
+  CovidDataResult,
+  SourceStatus,
+  StateCovidData,
+  StateDataOptions,
+} from './types.js';
+import { stateAbbrToFips, stateAbbrToName } from './utils.js';
 
 type FetchFn = typeof globalThis.fetch;
 
@@ -30,9 +30,7 @@ export class CovidDataClient {
   }
 
   async getStateData(options?: StateDataOptions): Promise<CovidDataResult<StateCovidData>> {
-    const cacheKey = options?.states?.length
-      ? `states:${[...options.states].sort().join(',')}`
-      : 'states';
+    const cacheKey = options?.states?.length ? `states:${[...options.states].sort().join(',')}` : 'states';
 
     const cached = this.cache.get(cacheKey) as CovidDataResult<StateCovidData> | undefined;
     if (cached) return cached;

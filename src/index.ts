@@ -1,16 +1,19 @@
-export type {
-  StateCovidData,
-  CountyCovidData,
-  SourceStatus,
-  CovidDataResult,
-  CovidDataClientOptions,
-  StateDataOptions,
-  CountyDataOptions,
-} from './types.js';
-
 export { TTLCache } from './cache.js';
-export { isValidFips, stateAbbrToFips, fipsToStateAbbr, stateAbbrToName, normalizeStateAbbr } from './utils.js';
-
 export { CovidDataClient } from './client.js';
-export { fetchCdcCases, fetchHhsHospitalizations, fetchCdcVaccinations, fetchCdcCountyVaccinations } from './sources/soda.js';
 export { fetchNytCountyCases, fetchNytStateCases } from './sources/nyt.js';
+export {
+  fetchCdcCases,
+  fetchCdcCountyVaccinations,
+  fetchCdcVaccinations,
+  fetchHhsHospitalizations,
+} from './sources/soda.js';
+export type {
+  CountyCovidData,
+  CountyDataOptions,
+  CovidDataClientOptions,
+  CovidDataResult,
+  SourceStatus,
+  StateCovidData,
+  StateDataOptions,
+} from './types.js';
+export { fipsToStateAbbr, isValidFips, normalizeStateAbbr, stateAbbrToFips, stateAbbrToName } from './utils.js';

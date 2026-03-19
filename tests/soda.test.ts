@@ -1,19 +1,19 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import {
   fetchCdcCases,
-  fetchHhsHospitalizations,
-  fetchCdcVaccinations,
   fetchCdcCountyVaccinations,
+  fetchCdcVaccinations,
+  fetchHhsHospitalizations,
 } from '../src/sources/soda.js';
 
 // Fixture imports
 import cdcCasesMaxDate from './fixtures/cdc-cases-max-date.json';
 import cdcCasesSample from './fixtures/cdc-cases-sample.json';
-import hhsHospMaxDate from './fixtures/hhs-hospitalizations-max-date.json';
-import hhsHospSample from './fixtures/hhs-hospitalizations-sample.json';
+import cdcCountyVaxSample from './fixtures/cdc-county-vax-sample.json';
 import cdcVaxMaxDate from './fixtures/cdc-vaccinations-max-date.json';
 import cdcVaxSample from './fixtures/cdc-vaccinations-sample.json';
-import cdcCountyVaxSample from './fixtures/cdc-county-vax-sample.json';
+import hhsHospMaxDate from './fixtures/hhs-hospitalizations-max-date.json';
+import hhsHospSample from './fixtures/hhs-hospitalizations-sample.json';
 
 /** Helper: create a mock fetch that returns different responses per URL pattern */
 function mockFetch(responses: Array<{ match: string; json: unknown }>): typeof globalThis.fetch {
@@ -47,7 +47,7 @@ describe('fetchCdcCases', () => {
       { match: 'MAX(end_date)', json: cdcCasesMaxDate },
       { match: '$where', json: cdcCasesSample },
     ]);
-    const { data, status } = await fetchCdcCases(fn);
+    const { data } = await fetchCdcCases(fn);
 
     expect(data.size).toBe(5);
     expect(data.has('AK')).toBe(true);
@@ -293,23 +293,19 @@ describe('fetchCdcVaccinations', () => {
 // ---------------------------------------------------------------------------
 describe('fetchCdcCountyVaccinations', () => {
   it('returns correct Map entries keyed by FIPS', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: cdcCountyVaxSample },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: cdcCountyVaxSample }]);
     const { data } = await fetchCdcCountyVaccinations(fn);
 
     expect(data.size).toBe(5);
-    expect(data.has('55129')).toBe(true);  // Washburn County, WI
-    expect(data.has('19173')).toBe(true);  // Taylor County, IA
-    expect(data.has('36059')).toBe(true);  // Nassau County, NY
-    expect(data.has('48281')).toBe(true);  // Lampasas County, TX
-    expect(data.has('26145')).toBe(true);  // Saginaw County, MI
+    expect(data.has('55129')).toBe(true); // Washburn County, WI
+    expect(data.has('19173')).toBe(true); // Taylor County, IA
+    expect(data.has('36059')).toBe(true); // Nassau County, NY
+    expect(data.has('48281')).toBe(true); // Lampasas County, TX
+    expect(data.has('26145')).toBe(true); // Saginaw County, MI
   });
 
   it('maps field names correctly', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: cdcCountyVaxSample },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: cdcCountyVaxSample }]);
     const { data } = await fetchCdcCountyVaccinations(fn);
     const nassau = data.get('36059')!;
 
@@ -321,9 +317,7 @@ describe('fetchCdcCountyVaccinations', () => {
   });
 
   it('computes vaccinationRate from series_complete_yes / census2019', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: cdcCountyVaxSample },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: cdcCountyVaxSample }]);
     const { data } = await fetchCdcCountyVaccinations(fn);
     const washburn = data.get('55129')!;
 
@@ -332,9 +326,7 @@ describe('fetchCdcCountyVaccinations', () => {
   });
 
   it('parses numeric strings to numbers', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: cdcCountyVaxSample },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: cdcCountyVaxSample }]);
     const { data } = await fetchCdcCountyVaccinations(fn);
     const tx = data.get('48281')!;
 
@@ -345,9 +337,7 @@ describe('fetchCdcCountyVaccinations', () => {
   });
 
   it('returns success SourceStatus with correct metadata', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: cdcCountyVaxSample },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: cdcCountyVaxSample }]);
     const { status } = await fetchCdcCountyVaccinations(fn);
 
     expect(status.name).toBe('cdc-county-vaccinations');
@@ -364,9 +354,7 @@ describe('fetchCdcCountyVaccinations', () => {
   });
 
   it('handles empty response gracefully', async () => {
-    const fn = mockFetch([
-      { match: '8xkx-amqh', json: [] },
-    ]);
+    const fn = mockFetch([{ match: '8xkx-amqh', json: [] }]);
     const { data, status } = await fetchCdcCountyVaccinations(fn);
 
     expect(data.size).toBe(0);

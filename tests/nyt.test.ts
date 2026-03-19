@@ -1,16 +1,10 @@
-import { describe, it, expect, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { describe, expect, it, vi } from 'vitest';
 import { fetchNytCountyCases, fetchNytStateCases } from '../src/sources/nyt.js';
 
-const countiesCSV = readFileSync(
-  resolve(__dirname, 'fixtures/nyt-counties-sample.csv'),
-  'utf-8',
-);
-const statesCSV = readFileSync(
-  resolve(__dirname, 'fixtures/nyt-states-sample.csv'),
-  'utf-8',
-);
+const countiesCSV = readFileSync(resolve(__dirname, 'fixtures/nyt-counties-sample.csv'), 'utf-8');
+const statesCSV = readFileSync(resolve(__dirname, 'fixtures/nyt-states-sample.csv'), 'utf-8');
 
 function mockFetchOk(text: string) {
   return vi.fn().mockResolvedValue({
@@ -208,8 +202,7 @@ describe('fetchNytStateCases', () => {
   });
 
   it('skips states that cannot be mapped to abbreviations', async () => {
-    const csv =
-      'date,state,fips,cases,deaths\n2023-03-23,Narnia,99,100,5\n2023-03-23,California,06,1000,10\n';
+    const csv = 'date,state,fips,cases,deaths\n2023-03-23,Narnia,99,100,5\n2023-03-23,California,06,1000,10\n';
     const fetchFn = mockFetchOk(csv);
     const result = await fetchNytStateCases(fetchFn);
 
